@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+<html lang="en">
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white p-6 rounded-xl shadow-2xl max-w-4xl w-full flex flex-col md:flex-row gap-8">
+      <div class="w-full md:w-1/2">
+        <img src={entry.data.image} class="w-full h-auto rounded-lg object-cover" />
+      </div>
+      
+      <div class="w-full md:w-1/2 flex flex-col justify-center">
+        <h1 class="text-3xl font-bold mb-4 text-gray-900">{entry.data.title}</h1>
+        <p class="text-3xl text-green-600 font-bold mb-6">${entry.data.price}</p>
+        
+        <div class="prose text-gray-600 mb-8">
+          <Content />
+        </div>
+        
+        <a href={entry.data.link} target="_blank" class="block w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-center py-4 rounded-lg text-lg transition shadow-md">
+          Buy Now on Amazon
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
