@@ -1,0 +1,14 @@
+{
+  "name": "Globin",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "python3 generate.py && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.0.0",
+    "tailwindcss": "^3.0.0"
+  }
+}
