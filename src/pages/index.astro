@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+const products = await getCollection('products');
+---
+<html lang="en">
+  <head>
+    <title>Globin Market</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+  </head>
+  <body class="bg-gray-100 min-h-screen p-8">
+    <h1 class="text-4xl font-bold text-center mb-10">Best Deals Market</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+      {products.map(product => (
+        <a href={`/${product.slug}`} class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden group">
+          <div class="h-48 overflow-hidden">
+            <img src={product.data.image} alt={product.data.title} class="w-full h-full object-cover group-hover:scale-110 transition duration-300" />
+          </div>
+          <div class="p-4">
+            <h2 class="font-bold text-gray-800 truncate">{product.data.title}</h2>
+            <p class="text-green-600 font-bold text-xl mt-2">${product.data.price}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </body>
+</html>
